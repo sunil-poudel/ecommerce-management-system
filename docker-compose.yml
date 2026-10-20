@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ecommerce-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ecommerce_backend
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ecommerce-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecommerce-backend
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ecommerce_backend
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      JWT_SECRET: c2VjdXJlX2p3dF9zZWNyZXRfa2V5X2Zvcl90ZXN0aW5nX2Vjb21tZXJjZV8xMjM0NTY3ODkw
+      GEMINI_API_KEY: ""
+      BACKUP_ENABLED: "false"
+    ports:
+      - "8080:8080"
+    volumes:
+      - uploads_data:/app/uploads
+    networks:
+      - ecommerce-network
+
+volumes:
+  mysql_data:
+  uploads_data:
+
+networks:
+  ecommerce-network:
+    driver: bridge

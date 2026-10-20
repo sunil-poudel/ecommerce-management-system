@@ -1,0 +1,52 @@
+# Compiled class and build outputs
+target/
+build/
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# IDE & Editor files
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Uploads directory (keep folder structure via .gitkeep, ignore actual user assets)
+uploads/*
+!uploads/.gitkeep
+
+# Database backups & local dumps
+db_backups/
+*.sql
+
+# Environment variable files (keep .example files)
+.env
+.env.local
+.env.*.local
+
+# Log files
+*.log
+logs/
+
+# Operating system artifacts
+.DS_Store
+Thumbs.db
