@@ -40,7 +40,7 @@ sequenceDiagram
     DB-->>Service: Result Data
     Service-->>Controller: DTO Response
     Controller-->>Tenant: HTTP Response
-    Tenant->>Tenant: finally { ShopContext.clear(); }
+    Tenant->>Tenant: ShopContext.clear() (finally block)
     Tenant-->>Client: 200 OK / Response Body
 ```
 
